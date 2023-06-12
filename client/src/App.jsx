@@ -1,27 +1,20 @@
 import React, {useEffect} from 'react';
-import axios from "axios";
 import {AppBar, Container, Grid, Grow, Typography} from "@mui/material";
 import img from './assetss/memories.png'
 import Posts from "./components/posts";
 import Form from "./components/form";
 import useStyles from './styles'
-import {useDispatch} from "react-redux";
-import {getPosts} from "./actions/posts";
+import {useStore} from "./hooks/useStore";
+import {observer} from "mobx-react-lite";
 
-const App = () => {
+
+const App = observer(() => {
     const classes = useStyles()
-    const dispatch = useDispatch()
+    const {posts} = useStore()
+
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const res = await axios.get('http://localhost:5000/posts')
-                debugger
-            } catch (e) {
-                console.log(e)
-            }
-        }
-        getData()
+        posts.getPosts()
     }, [])
     return (
         <Container maxWidth={'lg'}>
@@ -46,6 +39,6 @@ const App = () => {
             </Grow>
         </Container>
     );
-};
+});
 
 export default App;

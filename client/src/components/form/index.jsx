@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import useStyles from "./styles";
 import {Button, Paper, TextField, Typography} from "@mui/material";
 import FileBase from "react-file-base64";
-import {useDispatch} from "react-redux";
-import {createPosts} from "../../actions/posts";
+import {observer} from "mobx-react-lite";
+import {useStore} from "../../hooks/useStore";
 
-const Form = () => {
+const Form = observer(() => {
     const classes = useStyles()
-    const dispatch = useDispatch()
+    const store = useStore()
     const [postDate, setPostDate] = useState({
         created: '',
         title: '',
@@ -18,7 +18,7 @@ const Form = () => {
 
     const onChange = (key, value) => setPostDate({...postDate, [key]: value})
     const handleSubmit = () => {
-        dispatch(createPosts(postDate))
+        store.posts.addedPost(postDate)
     }
     const clear = () => setPostDate({
         created: '',
@@ -93,6 +93,6 @@ const Form = () => {
             </form>
         </Paper>
     );
-};
+});
 
 export default Form;

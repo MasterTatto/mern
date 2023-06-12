@@ -1,20 +1,22 @@
 import React from 'react';
 import Post from "./post";
 import useStyles from "./styles";
-import {useSelector} from "react-redux";
+import {useStore} from "../../hooks/useStore";
+import {observer} from "mobx-react-lite";
 
-const Posts = () => {
+const Posts = observer(() => {
     const classes = useStyles()
-    const posts = useSelector((state) => state.posts)
-
-    console.log(posts)
+    const store = useStore()
+    console.log(store.posts.isLoading)
     return (
         <div>
-            <h1>Posts</h1>
-            <Post/>
-            <Post/>
+            {store.posts.isLoading ? 'loading...' : <>
+                {store.posts.posts.map((el, i) => {
+                    return <h1 key={i}>{el.title}</h1>
+                })}
+            </>}
         </div>
     );
-};
+});
 
 export default Posts;
