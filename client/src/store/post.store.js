@@ -43,6 +43,36 @@ class PostStore {
 
         }
     }
+
+    async updatePost(id, post) {
+        try {
+            const res = await PostService.updatePost(id, post)
+            this.setAllPost(this.posts.map((el) => el._id === id ? res.data : el))
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
+
+    async deletePost(id) {
+        try {
+            await PostService.deletePost(id)
+            this.setAllPost(this.posts.filter((f) => f._id !== id))
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
+
+    async likePost(id) {
+        try {
+            const res = await PostService.likePost(id)
+            this.setAllPost(this.posts.map((el) => el._id === id ? ({...el, likeCount: res.data.likeCount}) : el))
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
 }
 
 export default new PostStore()

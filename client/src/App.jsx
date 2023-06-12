@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppBar, Container, Grid, Grow, Typography} from "@mui/material";
 import img from './assetss/memories.png'
 import Posts from "./components/posts";
@@ -12,6 +12,7 @@ const App = observer(() => {
     const classes = useStyles()
     const {posts} = useStore()
 
+    const [currentID, setCurrentID] = useState(null)
 
     useEffect(() => {
         posts.getPosts()
@@ -29,10 +30,10 @@ const App = observer(() => {
                 <Container>
                     <Grid container justifyContent={'space-between'} alignItems={'stretch'} spacing={3}>
                         <Grid item xs={12} sm={7}>
-                            <Posts/>
+                            <Posts setCurrentID={setCurrentID}/>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Form/>
+                            <Form currentID={currentID} setCurrentID={setCurrentID}/>
                         </Grid>
                     </Grid>
                 </Container>
