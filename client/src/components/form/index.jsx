@@ -13,7 +13,7 @@ const Form = observer(({currentID, setCurrentID}) => {
         creator: '',
         title: '',
         message: '',
-        tags: '',
+        tags: [],
         selectedFile: ''
     })
 
@@ -34,7 +34,7 @@ const Form = observer(({currentID, setCurrentID}) => {
             creator: '',
             title: '',
             message: '',
-            tags: '',
+            tags: [],
             selectedFile: ''
         })
     }
